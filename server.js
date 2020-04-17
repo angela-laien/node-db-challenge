@@ -9,4 +9,8 @@ server.use(helmet());
 server.use(express.json());
 server.use('/api/projects', ProjectRouter);
 
+server.get('/', (req, res) => {
+    res.send('Welcome!')
+})
+
 module.exports = server;

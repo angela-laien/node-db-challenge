@@ -5,7 +5,9 @@ module.exports = {
     findById,
     add,
     findTasks,
-    findResources
+    findResources,
+    addTask,
+    addResource
 };
 
 function find() {
@@ -34,4 +36,16 @@ function findResources(id) {
     return db.select('*').from('projects')
         .join('resources', 'projects.id', 'resources.project_id')
         .where('projects.id', id)
+}
+
+async function addTask(task, project_id) {
+    const newTask = {...task, project_id};
+    const [id] = await db('tasks').insert(newTask, 'id');
+    return db('tasks').where('id', id)
+}
+
+async function addResource(resource, project_id) {
+    const newResource = {...resource, project_id};
+    const [id] = await db('resources').insert(newResource, 'id');
+    return db('Resources').where('id', id)
 }
